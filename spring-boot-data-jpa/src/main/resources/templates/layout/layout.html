@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="UTF-8" />
+    <title th:text="' Spring Boot 3: ' + ${titulo}"></title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+</head>
+
+<body>
+    <header th:fragment="header">
+        <ul class="nav navbar-expand-lg navbar-dark bg-dark">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/listar}">Clientes</a>
+            </li>
+
+        </ul>
+
+        <!-- mensajes Flash de alerta -->
+        <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+        <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+        <div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
+        <div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+    </header>
+
+    <div class="container"></div>
+
+    <footer th:fragment="footer" class="container">
+        <hr />
+        <img th:src="@{/images/spring.png}" alt="" width="100">
+
+		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+    </footer>
+
+
+
+
+</body>
+
+</html>
