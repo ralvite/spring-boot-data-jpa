@@ -80,6 +80,7 @@ public class SpringSecurityConfig {
     // a inner join users u on (a.user_id=u.id) where u.username=?")
     // and().build();
     // }
+    
 
 
     // AUTENTICACIÓN CON JPA
