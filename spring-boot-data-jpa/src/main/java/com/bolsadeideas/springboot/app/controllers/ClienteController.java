@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -112,6 +114,19 @@ public class ClienteController {
         return "ver";
     }
 
+    // Implementación del listado de clientes como Rest
+    @GetMapping(value = "/listar-rest")
+    @ResponseBody
+    public List<Cliente> listarRest() {
+        // devuelve una clase entity (POJO) en un response body
+        // para que el rest pueda retornar en formato xml (listar-rest?format=xml)
+        // es necesario crear un wrapper de lista ClienteList sobre el clienteService
+        // en caso de JSON no es necesario pq convierte las listas directamente
+
+        // La opcion B sería crear un RestController especifico
+        return clienteService.findAll();
+    }
+
     // defaultvalue del paginador = 0 para la primera página
     @RequestMapping(value = {"/listar","/"}, method = RequestMethod.GET)
     public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
@@ -156,7 +171,7 @@ public class ClienteController {
             logger.info("Forma Request. Hola ".concat(auth.getName()).concat( " NO tienes acceso!"));
         }
 
-        // crea el pageable
+        // crea el paginador
         Pageable pageRequest = PageRequest.of(page, 4);
 
         // vista paginada

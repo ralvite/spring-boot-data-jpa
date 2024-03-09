@@ -17,6 +17,7 @@
                 <h4 class="card-title">
                     <!-- configura la autorización muestra/oculta botón -->
                     <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/form}" class="btn btn-primary btn-xs">Crear usuario</a>
+                    <a class="btn btn-outline-warning btn-xs float-right mx-1" th:href="@{'/listar'(format=json)}">JSON</a>
                 </h4>
                 <table class="table table-striped">
                     <thead>

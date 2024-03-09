@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,13 +41,18 @@ public class Factura implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createAt;
 
     // Many se refiere a la Clase
     // en la que estamos: muchas facturas y un cliente
     // mejor consultas LAZY para traer solo los datos
     // necesarios y cuando se le llama
+    // JsonBackReference en combinación con JsonManagedReference en Cliente
+    // evita la bidireccionalidad de cliente - factura y que entre en loop infinito
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Cliente cliente;
 
     // con JoinColum indicamos cual es la FK con la que

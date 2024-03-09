@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,7 +58,10 @@ public class Cliente implements Serializable {
     // un cliente - muchas facturas
     // al pasar mappedBy va a crear el cliente_id para
     // usar como FK
+    // JsonManagedReference para que el json no entre en loop infinito
+    // al mostrar las facturas del cliente por la relación cliente - factura - cliente
     @OneToMany(mappedBy = "cliente", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Factura> facturas;
 
     
